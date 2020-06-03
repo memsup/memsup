@@ -14,6 +14,9 @@ import lombok.ToString;
 @ToString
 public class AuthUser {
 
+    @JsonProperty("auth_user_id")
+    private int authUserId;
+
     @JsonProperty("auth_user")
     private String authUsername;
 

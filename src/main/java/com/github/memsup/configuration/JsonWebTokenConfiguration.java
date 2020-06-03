@@ -10,10 +10,10 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:application.yaml")
 public class JsonWebTokenConfiguration {
 
-    @Value("jwt.secret.key")
+    @Value("${jwt.secret.key}")
     private String secretKey;
 
-    @Value("jwt.secret.validity")
+    @Value("${jwt.secret.validity}")
     private String validity;
 
     @Bean
