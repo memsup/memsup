@@ -34,7 +34,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 
         try (Jedis jedis = jedisPool.getResource()) {
 
-            final String cachedUserJsonString = jedis.hget(username, "username");
+            final String cachedUserJsonString = jedis.hget(username, "user");
 
             if (cachedUserJsonString != null) {
                 authUser = mapper.readValue(cachedUserJsonString, AuthUser.class);
@@ -42,7 +42,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
                 authUser = authUserRepository
                         .findByUsernameOrEmail(username)
                         .orElseThrow(() -> new UsernameNotFoundException("Username not found : " + username));
-                jedis.hset(username, "username", mapper.writeValueAsString(authUser));
+                jedis.hset(username, "user", mapper.writeValueAsString(authUser));
                 jedis.hset(username, "id", String.valueOf(authUser.getAuthUserId()));
             }
 
