@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.github.memsup</groupId>
     <artifactId>memsup</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>memsup</name>
     <description>Memsup is an full-stack web app that helps to learn English.</description>
 
