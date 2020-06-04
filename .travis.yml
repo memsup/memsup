@@ -20,7 +20,9 @@ branches:
 
 before_install:
   - docker run -d -e POSTGRES_PASSWORD=$PASSCODE -e POSTGRES_USER=$USER --name postgres_container -p 5432:5432 postgres
+  - docker ps -a
   - curl https://raw.githubusercontent.com/enesusta/travis-test/master/auth_user.sql?token=$ACCESS_TOKEN --output data.sql
+  - cat data.sql
   - cat data.sql | docker exec -i postgres_container psql -U docker
 
 install: true
