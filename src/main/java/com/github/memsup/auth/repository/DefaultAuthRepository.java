@@ -24,6 +24,7 @@ public final class DefaultAuthRepository implements AuthUserRepository {
     @Override
     public final Optional<AuthUser> findByUsernameOrEmail(final String username) {
 
+        log.info("girdi");
         AuthUser authUser = null;
         try (Connection connection =
                      dataSource.getConnection()) {
@@ -41,6 +42,7 @@ public final class DefaultAuthRepository implements AuthUserRepository {
                          connection.prepareStatement(searchAuthUserQuery, inSensitive, readOnly, closeCursorsAtCommit)) {
 
                 preparedStatement.setString(1, username);
+                preparedStatement.setString(2, username);
 
                 final ResultSet rs = preparedStatement.executeQuery();
                 rs.setFetchSize(1);
