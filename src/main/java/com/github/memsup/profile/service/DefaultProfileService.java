@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
 import java.util.function.Supplier;
 
 @Service
@@ -18,13 +18,19 @@ public class DefaultProfileService implements ProfileService {
     private final ProfileRepository profileRepository;
 
     @Override
-    public Supplier<Profile> getProfileWithItsUsername(String username) {
+    public Supplier<Profile> getProfileWithItsUsername(String username, HttpServletResponse response) {
         return () -> {
+            Profile profile = null;
             try {
-                return profileRepository.getProfileWithItsUsername(username).orElseThrow(ProfileNotFoundException::new);
+                profile = profileRepository.getProfileWithItsUsername(username).orElseThrow(ProfileNotFoundException::new);
             } catch (ProfileNotFoundException e) {
-                throw new ProfileNotFoundException();
+                log.error(e.getMessage());
+                throw new NullPointerException();
             }
+            return profile;
         };
     }
+
+
+
 }
