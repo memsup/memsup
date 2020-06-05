@@ -3,8 +3,6 @@ package com.github.memsup.auth;
 import com.github.enesusta.spring.security.jwt.JsonWebTokenManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +23,7 @@ import java.io.IOException;
 public class AuthFilter extends OncePerRequestFilter {
 
     private final JsonWebTokenManager tokenManager;
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     @Override
     protected final void doFilterInternal(final HttpServletRequest httpServletRequest,
@@ -65,8 +63,4 @@ public class AuthFilter extends OncePerRequestFilter {
 
     }
 
-    @Autowired
-    public void setUserDetailsService(@Qualifier("defaultUserDetailsService") final UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
 }

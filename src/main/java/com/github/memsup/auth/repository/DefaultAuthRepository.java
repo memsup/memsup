@@ -41,6 +41,7 @@ public final class DefaultAuthRepository implements AuthUserRepository {
                          connection.prepareStatement(searchAuthUserQuery, inSensitive, readOnly, closeCursorsAtCommit)) {
 
                 preparedStatement.setString(1, username);
+                preparedStatement.setString(2, username);
 
                 final ResultSet rs = preparedStatement.executeQuery();
                 rs.setFetchSize(1);
