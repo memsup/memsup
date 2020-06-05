@@ -24,7 +24,6 @@ public final class DefaultAuthRepository implements AuthUserRepository {
     @Override
     public final Optional<AuthUser> findByUsernameOrEmail(final String username) {
 
-        log.info("girdi");
         AuthUser authUser = null;
         try (Connection connection =
                      dataSource.getConnection()) {

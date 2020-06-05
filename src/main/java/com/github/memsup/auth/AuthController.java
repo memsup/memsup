@@ -26,11 +26,9 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody final AuthUser authUser) throws UsernameNotFoundException {
-        log.info("pwd {}", authUser.getAuthPassword());
         final UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(authUser.getAuthUsername(), authUser.getAuthPassword());
         authenticationManager.authenticate(authenticationToken);
-
         final String authToken = jsonWebTokenManager.generateToken(authUser.getAuthUsername());
         return ResponseEntity.ok(authToken);
     }
